@@ -1,0 +1,16 @@
+{
+  "name": "dabble",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/mobile"
+  ],
+  "scripts": {
+    "mobile": "npm run start --workspace=apps/mobile",
+    "lint": "npm run lint --workspace=apps/mobile",
+    "type-check": "npm run type-check --workspace=apps/mobile"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
