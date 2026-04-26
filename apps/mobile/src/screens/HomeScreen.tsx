@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import {
   View, Text, FlatList, StyleSheet, SafeAreaView,
   ActivityIndicator, RefreshControl,
@@ -14,11 +14,18 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export default memo(function HomeScreen() {
   const navigation         = useNavigation<Nav>();
   const { state, refetch } = useEvents();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleEventPress = useCallback(
     (event: DabbleEvent) => navigation.navigate('EventDetail', { eventId: event.id }),
     [navigation]
   );
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await refetch();
+    setIsRefreshing(false);
+  }, [refetch]);
 
   const keyExtractor = useCallback((item: DabbleEvent) => item.id, []);
   const renderItem   = useCallback(
@@ -32,7 +39,7 @@ export default memo(function HomeScreen() {
     </View>
   ), []);
 
-  if (state.status === 'loading') {
+  if (state.status === 'loading' && !isRefreshing) {
     return (
       <SafeAreaView style={styles.centered}>
         <ActivityIndicator size="large" color="#E8572A" />
@@ -63,8 +70,8 @@ export default memo(function HomeScreen() {
         windowSize={5}
         refreshControl={
           <RefreshControl
-            refreshing={state.status === 'loading'}
-            onRefresh={refetch}
+            refreshing={isRefreshing}
+            onRefresh={handleRefresh}
             tintColor="#E8572A"
           />
         }
