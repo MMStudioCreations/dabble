@@ -12,7 +12,7 @@ export default memo(function ProfileScreen() {
 
   const initials = user?.profile?.full_name
     ?.split(' ')
-    .map(n => n[0])
+    .map((n: string): string => n[0] ?? '')
     .join('')
     .toUpperCase()
     .slice(0, 2) ?? '?';

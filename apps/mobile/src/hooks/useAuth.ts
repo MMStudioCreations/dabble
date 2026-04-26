@@ -24,29 +24,42 @@ export function useAuth() {
       .eq('id', userId)
       .single();
 
-    setState(prev => ({
-      ...prev,
+    setState((prev: Partial<AuthState>): AuthState => ({
+      session: prev.session ?? null,
       user: {
         id: toUserId(userId),
         email,
         profile: profile as Profile | null,
       },
+      loading: prev.loading ?? false,
     }));
   }, []);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setState(prev => ({ ...prev, session, loading: false }));
+      setState((prev: Partial<AuthState>): AuthState => ({
+        session,
+        user: prev.user ?? null,
+        loading: false,
+      }));
       if (session) void fetchProfile(session.user.id, session.user.email ?? '');
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setState(prev => ({ ...prev, session }));
+        setState((prev: Partial<AuthState>): AuthState => ({
+          session,
+          user: prev.user ?? null,
+          loading: prev.loading ?? false,
+        }));
         if (session) {
           void fetchProfile(session.user.id, session.user.email ?? '');
         } else {
-          setState(prev => ({ ...prev, user: null }));
+          setState((prev: Partial<AuthState>): AuthState => ({
+            session: prev.session ?? null,
+            user: null,
+            loading: prev.loading ?? false,
+          }));
         }
       }
     );

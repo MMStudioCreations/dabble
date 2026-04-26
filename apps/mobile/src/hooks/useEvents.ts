@@ -2,6 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { AsyncState, DabbleEvent } from '../types';
 
+type AttendanceCount = { count: number };
+type EventRow = Record<string, unknown> & { attendances: AttendanceCount[] };
+
 export function useEvents() {
   const [state, setState] = useState<AsyncState<DabbleEvent[]>>({ status: 'idle' });
 
@@ -25,10 +28,11 @@ export function useEvents() {
 
       if (error) throw error;
 
-      const events = (data ?? []).map(row => ({
-        ...row,
-        attendee_count: (row.attendances as unknown as { count: number }[])[0]?.count ?? 0,
-      })) as DabbleEvent[];
+      const rows = (data ?? []) as unknown as EventRow[];
+      const events: DabbleEvent[] = rows.map(row => ({
+        ...(row as unknown as DabbleEvent),
+        attendee_count: row.attendances[0]?.count ?? 0,
+      }));
 
       setState({ status: 'success', data: events });
     } catch (err) {

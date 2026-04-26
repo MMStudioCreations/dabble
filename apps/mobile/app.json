@@ -4,7 +4,6 @@
     "slug": "dabble",
     "version": "1.0.0",
     "sdkVersion": "54.0.0",
-    "entryPoint": "./index.js",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

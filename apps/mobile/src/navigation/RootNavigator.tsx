@@ -60,29 +60,31 @@ function AuthStack() {
   );
 }
 
+function AppStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MainTabs" component={MainTabs} />
+      <Stack.Screen
+        name="EventDetail"
+        component={EventDetailScreen}
+        options={{
+          headerShown: true,
+          title: '',
+          headerStyle:     { backgroundColor: BRAND.dark },
+          headerTintColor: '#FFFFFF',
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export const RootNavigator = memo(function RootNavigator() {
   const { isAuthenticated, loading } = useAuth();
   if (loading) return null;
 
   return (
-    <NavigationContainer>
-      {isAuthenticated ? (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="MainTabs"    component={MainTabs} />
-          <Stack.Screen
-            name="EventDetail"
-            component={EventDetailScreen}
-            options={{
-              headerShown: true,
-              title: '',
-              headerStyle:     { backgroundColor: BRAND.dark },
-              headerTintColor: '#FFFFFF',
-            }}
-          />
-        </Stack.Navigator>
-      ) : (
-        <AuthStack />
-      )}
-    </NavigationContainer>
+    <NavigationContainer
+      children={isAuthenticated ? <AppStack /> : <AuthStack />}
+    />
   );
 });
