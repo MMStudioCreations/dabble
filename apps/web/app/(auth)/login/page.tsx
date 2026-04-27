@@ -62,7 +62,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           {error && (
-            <div className="bg-red-700 rounded-xl p-3">
+            <div className="bg-red-700 rounded-xl p-3" role="alert">
               <p className="text-white text-sm font-semibold">{error}</p>
             </div>
           )}
