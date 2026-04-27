@@ -60,9 +60,6 @@ jobs:
   expo-doctor:
     name: Expo Doctor
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/mobile
 
     steps:
       - name: Checkout
@@ -78,4 +75,5 @@ jobs:
         run: npm ci
 
       - name: Run Expo Doctor
+        working-directory: apps/mobile
         run: npx expo-doctor
