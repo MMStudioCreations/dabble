@@ -37,8 +37,8 @@ export default function LoginPage() {
     try {
       await signIn(result.data.email, result.data.password);
       router.replace('/events');
-    } catch {
-      setError('Invalid credentials. Please try again.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Invalid credentials. Please try again.');
     } finally {
       setSubmitting(false);
     }
