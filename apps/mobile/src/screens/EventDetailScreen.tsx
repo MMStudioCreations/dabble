@@ -11,7 +11,7 @@ import { useAttendance } from '../hooks/useAttendance';
 import { useAuth } from '../hooks/useAuth';
 import { AttendeeList } from '../components/AttendeeList';
 import { Button } from '../components/Button';
-import type { Attendance, EventId, RootStackParamList } from '../types';
+import type { Attendance, RootStackParamList } from '../types';
 
 type EventDetailRoute = RouteProp<RootStackParamList, 'EventDetail'>;
 
