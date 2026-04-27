@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  lint-and-typecheck:
-    name: Lint & Type Check
+  lint-and-typecheck-mobile:
+    name: Lint & Type Check (Mobile)
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,31 @@ jobs:
       - name: Lint
         working-directory: apps/mobile
         run: npx eslint src --ext .ts,.tsx --max-warnings 0
+
+  lint-and-typecheck-web:
+    name: Lint & Type Check (Web)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check (Web)
+        working-directory: apps/web
+        run: npm run type-check
+
+      - name: Lint (Web)
+        working-directory: apps/web
+        run: npm run lint
 
   expo-doctor:
     name: Expo Doctor

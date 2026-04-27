@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "apps/mobile"
+    "apps/mobile",
+    "apps/web"
   ],
   "scripts": {
     "mobile": "npm run start --workspace=apps/mobile",
-    "lint": "npm run lint --workspace=apps/mobile",
-    "type-check": "npm run type-check --workspace=apps/mobile"
+    "web": "npm run dev --workspace=apps/web",
+    "lint": "npm run lint --workspace=apps/mobile && npm run lint --workspace=apps/web",
+    "type-check": "npm run type-check --workspace=apps/mobile && npm run type-check --workspace=apps/web"
   },
   "engines": {
     "node": ">=20.0.0"

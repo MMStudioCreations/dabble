@@ -1,0 +1,20 @@
+# Next.js build output
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# TypeScript incremental cache
+tsconfig.tsbuildinfo
+
+# Environment secrets
+.env.local
+.env*.local
+
+# next-pwa generated service worker (when using next-pwa package)
+public/workbox-*.js
+public/sw.js.map
+
+# Vercel
+.vercel
