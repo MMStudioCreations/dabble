@@ -18,11 +18,11 @@ This `apps/web` package is the Next.js 15 Progressive Web App (PWA) that deliver
 
 - **Authentication** — Email/password sign-up and login via Supabase Auth
 - **Event Discovery** — Browse upcoming local events by venue, date, and category
-- **Attendance Signaling** — Mark yourself as going, maybe, or not going
+- **Attendance Signaling** — Mark yourself as going or interested in an event
 - **Attendee Visibility** — See who else plans to attend before you commit
 - **Realtime Updates** — Attendance counts update live via Supabase Realtime
 - **Installable PWA** — Add to home screen on iOS and Android for a native feel
-- **Profile & Settings** — Manage your account and notification preferences
+- **Profile & Settings** — Manage your profile, bio, and interests
 
 ---
 
